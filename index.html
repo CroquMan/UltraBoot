@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Télémétrie — DESKTOP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="offline-screen" class="offline-screen" hidden>
+    <div class="offline-inner">
+      <div class="offline-glyph">◯</div>
+      <h1>MACHINE ÉTEINTE</h1>
+      <p>Aucune télémétrie reçue depuis <span id="offline-since">—</span>.</p>
+      <p class="offline-sub">Le dashboard se réactive automatiquement dès que le poste renvoie des données.</p>
+    </div>
+  </div>
+
+  <main id="dashboard" class="dashboard">
+
+    <header class="topbar">
+      <div class="topbar-left">
+        <span id="live-dot" class="live-dot"></span>
+        <span id="hostname" class="hostname">—</span>
+      </div>
+      <div class="topbar-right">
+        <span class="label">dernière mise à jour</span>
+        <span id="last-update" class="mono">—</span>
+      </div>
+    </header>
+
+    <div id="alert-banner" class="alert-banner" hidden>
+      <span class="alert-icon">⚠</span>
+      <span id="alert-text"></span>
+    </div>
+
+    <section class="grid">
+
+      <article class="card" id="card-cpu">
+        <div class="card-head">
+          <span class="card-title">CPU</span>
+          <span class="bezel-dot" id="dot-cpu"></span>
+        </div>
+        <div class="card-name" id="name-cpu">—</div>
+        <div class="metric-row">
+          <div class="metric">
+            <div class="metric-value mono" id="cpu-temp">—</div>
+            <div class="metric-label">température</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value mono" id="cpu-usage">—</div>
+            <div class="metric-label">charge</div>
+          </div>
+        </div>
+        <div class="bar"><div class="bar-fill" id="bar-cpu"></div></div>
+      </article>
+
+      <article class="card" id="card-gpu">
+        <div class="card-head">
+          <span class="card-title">GPU</span>
+          <span class="bezel-dot" id="dot-gpu"></span>
+        </div>
+        <div class="card-name" id="name-gpu">—</div>
+        <div class="metric-row">
+          <div class="metric">
+            <div class="metric-value mono" id="gpu-temp">—</div>
+            <div class="metric-label">température</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value mono" id="gpu-usage">—</div>
+            <div class="metric-label">charge</div>
+          </div>
+        </div>
+        <div class="bar"><div class="bar-fill" id="bar-gpu"></div></div>
+        <div class="vram" id="gpu-vram">VRAM —</div>
+      </article>
+
+      <article class="card" id="card-ram">
+        <div class="card-head">
+          <span class="card-title">MÉMOIRE</span>
+          <span class="bezel-dot" id="dot-ram"></span>
+        </div>
+        <div class="metric-row">
+          <div class="metric metric-solo">
+            <div class="metric-value mono" id="ram-usage">—</div>
+            <div class="metric-label" id="ram-detail">— / —</div>
+          </div>
+        </div>
+        <div class="bar"><div class="bar-fill" id="bar-ram"></div></div>
+      </article>
+
+      <article class="card" id="card-disk">
+        <div class="card-head">
+          <span class="card-title">DISQUE</span>
+          <span class="bezel-dot" id="dot-disk"></span>
+        </div>
+        <div id="disk-list" class="disk-list"></div>
+      </article>
+
+      <article class="card card-wide" id="card-net">
+        <div class="card-head">
+          <span class="card-title">RÉSEAU</span>
+          <span class="bezel-dot" id="dot-net"></span>
+        </div>
+        <div class="net-row">
+          <div class="metric">
+            <div class="metric-value mono net-up" id="net-up">—</div>
+            <div class="metric-label">↑ envoi</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value mono net-down" id="net-down">—</div>
+            <div class="metric-label">↓ réception</div>
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+    <footer class="footer">
+      <span class="mono">rafraîchissement automatique · toutes les 15s</span>
+    </footer>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

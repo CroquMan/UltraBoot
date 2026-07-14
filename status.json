@@ -1,0 +1,35 @@
+{
+  "timestamp": 1784308338,
+  "hostname": "DESKTOP-A52KSFE",
+  "cpu": {
+    "name": "AMD Ryzen 7 3700X",
+    "temp": 73.4,
+    "usage": 14.8
+  },
+  "gpu": {
+    "name": "NVIDIA GeForce RTX 3060",
+    "temp": 59.0,
+    "usage": 42.0,
+    "vram_used": 148.3,
+    "vram_total": 12288.0
+  },
+  "ram": {
+    "used": 11.6,
+    "total": 15.9,
+    "usage_pct": 72.7
+  },
+  "disks": [
+    {
+      "name": "C:",
+      "used_pct": 82.0
+    },
+    {
+      "name": "D:",
+      "used_pct": 51.8
+    }
+  ],
+  "network": {
+    "up_kbps": 415.5,
+    "down_kbps": 12900.5
+  }
+}
