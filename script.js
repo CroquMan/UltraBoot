@@ -1,10 +1,7 @@
 // ============================================================
-// CONFIGURATION — à adapter à ton dépôt GitHub
+// CONFIGURATION
 // ============================================================
 const CONFIG = {
-  githubUser: "CroquMan",       // ex: "croquman"
-  githubRepo: "UltraBoot",              // ex: "pc-status"
-  branch: "main",
   statusFile: "status.json",
 
   pollIntervalMs: 10000,               // fréquence de lecture du site (10s)
@@ -19,8 +16,11 @@ const CONFIG = {
   }
 };
 
-const dataUrl = () =>
-  `https://raw.githubusercontent.com/${CONFIG.githubUser}/${CONFIG.githubRepo}/${CONFIG.branch}/${CONFIG.statusFile}?t=${Date.now()}`;
+// On lit status.json en same-origin (servi par GitHub Pages avec le reste
+// du site), pas via raw.githubusercontent.com dont le cache CDN ignore
+// souvent la query string de cache-busting et peut servir une version
+// périmée pendant plusieurs minutes.
+const dataUrl = () => `${CONFIG.statusFile}?t=${Date.now()}-${Math.random().toString(36).slice(2)}`;
 
 // ============================================================
 // Utilitaires
@@ -166,7 +166,10 @@ function renderDashboard(data) {
 
 async function tick() {
   try {
-    const res = await fetch(dataUrl(), { cache: "no-store" });
+    const res = await fetch(dataUrl(), {
+      cache: "no-store",
+      headers: { "Cache-Control": "no-cache, no-store, must-revalidate", "Pragma": "no-cache" }
+    });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
 
